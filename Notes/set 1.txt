@@ -1,0 +1,116 @@
+Q1. What is wrong with the following statements submitted is SQL statement?
+Set @V_DEPTNO = 20;
+SELECT last_name, salary from EMP where department_id = V_DEPTNO; 
+A.	Nothing is wrong. The query lists the employee’s name and salary of the employee who belong to department 20.
+B.	The SET statement declaration is wrong.
+C.	The substitution variable is not preceded with the @ char.
+D.	The substitution variable in the WHERE clause should be V_DEPTNO instead of V_DeptNo.
+
+Q2. What is wrong with the following statements submitted is SQL statement?
+Set @V_JOB = 'manager';
+SELECT last_name, salary from EMP where job = V_JOB; 
+A.	@ char is not given before V_JOB variable.
+B.	$ char is not given before V_JOB variable.
+C.	# char is not given before V_JOB variable.
+D.	None of the above.
+
+Q3. Which among the following is the correct syntax for defining “ENUM” in Mysql?
+A.	gender ENUM ('M', 'F'),
+B.	gender ENUM,
+C.	gender ENUM (),
+D.	None of these
+
+Q4. Find out the logical error in the following query?
+CREATE TABLE person
+(Person_id varchar (20),
+Name varchar (20),
+Address Varchar (20),
+Mobile_no Smallint
+);
+A.	Lesser number of columns
+B.	Incorrect definition
+C.	Primary key is missing
+D.	None of these
+
+Q5. What will be the storage pattern for “float (4, 2)” in Mysql?
+A.	Total of four digits, two to the left of decimal and two to the right of decimal
+B.	Total of six digits
+C.	Total of four digits, not distributed uniformly
+D.	None of these
+
+Q6. Which among the following are the correct representation of “float (4, 2)”?
+A.	24.33
+B.	124.4
+C.	12.123
+D.	Both a. and b.
+
+Q7. Which among the following is the correct representation of “float (5, 0)”?
+A.	12345.123
+B.	12345.1
+C.	12345
+D.	123.123
+
+Q8. Which value will show an error when stored in float (4, 2)?
+A.	12.11
+B.	13.1
+C.	1.12
+D.	123.44
+
+Q9. Will this query produce any error?
+INSERT INTO person
+(person_id, fname, lname)
+VALUES (1,'S','U'),
+VALUES (1,'T','U');
+/* where person_id is a primary key */
+A.	Error
+B.	No Error
+C.	Depends
+D.	None of these
+
+Q10. In the following query “person_id” can be
+SELECT person_id, fname, lname, Birth_data FROM person
+WHERE person_id=1;
+A.	Only Primary Key
+B.	Primary Key or any other Attribute
+C.	Only attribute but not a primary Key
+D.	None of these
+
+Q11. Find the error?
+CREATE TABLE person
+(person_id SMALLINT, name varchar, last varchar
+CONSTRAINTS pk_person PRIMARY KEY (person_id));
+INSERT INTO person (person_id, name, last) VALUES (1,’s’, ’p’);
+INSERT INTO person (person_id, name, last) VALUES (1,’s’,’p’);
+A.	No error
+B.	Error, Duplicate value
+C.	Any other error
+D.	None of these
+
+Q12. What is the meaning of “EMPTY SET” in the following query?
+SELECT fname, lname, person_id
+FROM person
+WHERE lname=’s’;
+/* after Execution*/ Mysql tool return EMPTY SET 0:00sec
+A.	No values
+B.	Error
+C.	Access denied
+D.	None of these
+
+Q13. What is the meaning of “SELECT” clause in Mysql?
+A.	Show me all Columns and rows.
+B.	Show me all columns.
+C.	Show me all rows.
+D.	None of these
+
+Q14. What will be the output of a query given below?
+SELECT person_id, Fname, lname FROM person;
+A.	Show only columns (person_id, Fname, lname) and rows related to these columns.
+B.	Show only columns (person_id, Fname, lname)
+C.	Show all rows
+D.	Show all columns except (person_id, Fname, lname)
+
+Q15. Can “SELECT” clause be used without the clause “FROM” in MySQL?
+A.	YES
+B.	NO
+C.	DEPENDS
+D.	May be?

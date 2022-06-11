@@ -1,0 +1,73 @@
+To Search for Docker package:
+		sudo yum search docker
+
+To Get version information:
+		sudo yum info docker  sudo docker build -t 
+
+To install docker 
+		sudo yum install docker
+
+To Start docker service 
+		sudo systemctl start docker
+		sudo systemctl status docker
+		sudo systemctl enable docker
+
+To create docker image
+	sudo docker build -t webapp .
+
+
+To run image which is created using aboce command
+	sudo docker run --name expressserver -d -p 8081:8081 webapp
+						(-d : detatched mode , -p : port)
+
+
+To check the running containers
+			sudo docker ps
+
+To stop docker container instance
+			sudo docker kill container_id
+_____________________________________________________________________________________
+*checking docker tool, hoe to run html file on browser
+1.git --version
+2.git clone (webapp repo ki link copy) https://github.com/RaviTambade/containerapps.git
+3.cd webapp 
+4.ls
+5.sudo docker build -t webapp .
+6.sudo docker run --name web -d -p 8081:8081 webapp
+7.sudo docker ps
+8.check browser (if security path not set then set it and then refresh page)
+9. if an existing image then use following command:
+	sudo docker kill container_id
+--------------------------------------------------------------------------------
+*checking docker , how to run java program
+1.cd .. (come to main folder)
+2.git clone (containerapp repo ki link copy) https://github.com/RaviTambade/webapp.git
+3.cd containerapps
+4.ls
+5.cd containerjavaapp
+6.ls
+7.sudo docker build -t containerjavaapp .
+8.sudo docker run containerjavaapp
+   you will get the output of sample.java file
+
+--------------------------------------------------------------------------------
+*checking docker, how to run python program
+1.cd ..
+2.cd pyapp
+3.ls
+4.nano index.py
+ctrl+x
+5.sudo docker build -t pyapp
+6.sudo docker run pyapp
+	also you can use python index.py
+	you will get the exact output of index.py file
+
+
+
+If you want to explore more 
+****https://kunalkushwaha.com/getting-started-with-docker#heading-what-is-docker
+
+
+
+
+

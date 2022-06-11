@@ -1,0 +1,320 @@
+14 may 2022
+notes
+binary to 
+
+
+
+
+Microsoft Windows [Version 10.0.22000.675]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\lenovo>mysql --host=localhsot --port=3306 --user=root --password=prathamesh@13 db2
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2005 (HY000): Unknown MySQL server host 'localhsot' (11001)
+
+C:\Users\lenovo>mysql --host=localhost --port=3306 --user=root --password=prathamesh@13 db2
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use db2;
+Database changed
+mysql>  show tables;
++---------------+
+| Tables_in_db2 |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.08 sec)
+
+mysql> drop table emp;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> create table emp(id int primary key auto_increment,ename varchar(10) not null, job varchar(10),city varchar(10) default 'pune', sal int check(sal>=5000));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc emp;\
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> insert into emp values(default, null, 'manager', 'baroda', 6000);
+ERROR 1048 (23000): Column 'ename' cannot be null
+mysql> insert into emp values(default, 'saleel', 'manager', 'baroda', 6000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into emp values(default, 'saleel', 'manager', default, 6000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into emp(ename, job, sal) values('ruhan','salesman', 5500),
+    ->  ("omkar's",'hr', 7000), ("Amit", "abc", 6700);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++----+---------+----------+--------+------+
+| id | ename   | job      | city   | sal  |
++----+---------+----------+--------+------+
+|  1 | saleel  | manager  | baroda | 6000 |
+|  2 | saleel  | manager  | pune   | 6000 |
+|  3 | ruhan   | salesman | pune   | 5500 |
+|  4 | omkar's | hr       | pune   | 7000 |
+|  5 | Amit    | abc      | pune   | 6700 |
++----+---------+----------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select last_insert_id() + 1;
++----------------------+
+| last_insert_id() + 1 |
++----------------------+
+|                    4 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql>  alter table emp add total int generated always as (sal + comm) virtual;
+ERROR 1054 (42S22): Unknown column 'comm' in 'generated column function'
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp add comm int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
+| comm  | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp;
++----+---------+----------+--------+------+------+
+| id | ename   | job      | city   | sal  | comm |
++----+---------+----------+--------+------+------+
+|  1 | saleel  | manager  | baroda | 6000 | NULL |
+|  2 | saleel  | manager  | pune   | 6000 | NULL |
+|  3 | ruhan   | salesman | pune   | 5500 | NULL |
+|  4 | omkar's | hr       | pune   | 7000 | NULL |
+|  5 | Amit    | abc      | pune   | 6700 | NULL |
++----+---------+----------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set comm=100;
+Query OK, 5 rows affected (0.01 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from emp;
++----+---------+----------+--------+------+------+
+| id | ename   | job      | city   | sal  | comm |
++----+---------+----------+--------+------+------+
+|  1 | saleel  | manager  | baroda | 6000 |  100 |
+|  2 | saleel  | manager  | pune   | 6000 |  100 |
+|  3 | ruhan   | salesman | pune   | 5500 |  100 |
+|  4 | omkar's | hr       | pune   | 7000 |  100 |
+|  5 | Amit    | abc      | pune   | 6700 |  100 |
++----+---------+----------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql>  alter table emp add total int generated always as (sal + comm) virtual;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;\
++-------+-------------+------+-----+---------+-------------------+
+| Field | Type        | Null | Key | Default | Extra             |
++-------+-------------+------+-----+---------+-------------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment    |
+| ename | varchar(10) | NO   |     | NULL    |                   |
+| job   | varchar(10) | YES  |     | NULL    |                   |
+| city  | varchar(10) | YES  |     | pune    |                   |
+| sal   | int         | YES  |     | NULL    |                   |
+| comm  | int         | YES  |     | NULL    |                   |
+| total | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++-------+-------------+------+-----+---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp modify total float(10,2);
+ERROR 3106 (HY000): 'Changing the STORED status' is not supported for generated columns.
+mysql> alter table emp modify total float(10,2) generated always as (sal + comm) virtual;
+Query OK, 5 rows affected, 1 warning (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 1
+
+mysql> select * from emp;
++----+---------+----------+--------+------+------+---------+
+| id | ename   | job      | city   | sal  | comm | total   |
++----+---------+----------+--------+------+------+---------+
+|  1 | saleel  | manager  | baroda | 6000 |  100 | 6100.00 |
+|  2 | saleel  | manager  | pune   | 6000 |  100 | 6100.00 |
+|  3 | ruhan   | salesman | pune   | 5500 |  100 | 5600.00 |
+|  4 | omkar's | hr       | pune   | 7000 |  100 | 7100.00 |
+|  5 | Amit    | abc      | pune   | 6700 |  100 | 6800.00 |
++----+---------+----------+--------+------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> create table login(login id int,login name varchar(20),password varchar(30) invisible);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int,login name varchar(20),password varchar(30) invisible)' at line 1
+mysql>  create table login(`login id` int,`login name` varchar(20),password varchar(30) invisible);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into login values(1,'kajal',"kajal@13");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into login (`login id`,`login name`,password) values(1,'kajal',"kajal@13");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from emp;
++----+---------+----------+--------+------+------+---------+
+| id | ename   | job      | city   | sal  | comm | total   |
++----+---------+----------+--------+------+------+---------+
+|  1 | saleel  | manager  | baroda | 6000 |  100 | 6100.00 |
+|  2 | saleel  | manager  | pune   | 6000 |  100 | 6100.00 |
+|  3 | ruhan   | salesman | pune   | 5500 |  100 | 5600.00 |
+|  4 | omkar's | hr       | pune   | 7000 |  100 | 7100.00 |
+|  5 | Amit    | abc      | pune   | 6700 |  100 | 6800.00 |
++----+---------+----------+--------+------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from login;
++----------+------------+
+| login id | login name |
++----------+------------+
+|        1 | kajal      |
++----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select `login id`,`login name`,password from login;
++----------+------------+----------+
+| login id | login name | password |
++----------+------------+----------+
+|        1 | kajal      | kajal@13 |
++----------+------------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into login values(2,'pratik');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select `login id`,`login name`,password from login;
++----------+------------+----------+
+| login id | login name | password |
++----------+------------+----------+
+|        1 | kajal      | kajal@13 |
+|        2 | pratik     | NULL     |
++----------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> update login set password=mam where `login id`=2;
+ERROR 1054 (42S22): Unknown column 'mam' in 'field list'
+mysql> update login set password='mam' where `login id`=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select `login id`,`login name`,password from login;
++----------+------------+----------+
+| login id | login name | password |
++----------+------------+----------+
+|        1 | kajal      | kajal@13 |
+|        2 | pratik     | mam      |
++----------+------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table login modify password varbinary(20);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>  desc login;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| login id   | int           | YES  |     | NULL    |       |
+| login name | varchar(20)   | YES  |     | NULL    |       |
+| password   | varbinary(20) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from login;
++----------+------------+--------------------+
+| login id | login name | password           |
++----------+------------+--------------------+
+|        1 | kajal      | 0x6B616A616C403133 |
+|        2 | pratik     | 0x6D616D           |
++----------+------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table login modify password varbinary(20) invisible;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from login;
++----------+------------+
+| login id | login name |
++----------+------------+
+|        1 | kajal      |
+|        2 | pratik     |
++----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select `login id`,`login name`,password from login;
++----------+------------+--------------------+
+| login id | login name | password           |
++----------+------------+--------------------+
+|        1 | kajal      | 0x6B616A616C403133 |
+|        2 | pratik     | 0x6D616D           |
++----------+------------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select `login id`,`login name`, cast (password as varchar) from login;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar) from login' at line 1
+mysql> select `login id`,`login name`, cast (password as char) from login;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char) from login' at line 1
+mysql> select `login name`, cast (password as char) from login;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char) from login' at line 1
+mysql> select `login name`, cast(password as char) from login;
++------------+------------------------+
+| login name | cast(password as char) |
++------------+------------------------+
+| kajal      | kajal@13               |
+| pratik     | mam                    |
++------------+------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select `login name`, cast(password as varchar) from login;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar) from login' at line 1
+mysql>

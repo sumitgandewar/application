@@ -1,0 +1,187 @@
+Microsoft Windows [Version 10.0.22000.675]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\lenovo>mysql --host=localhost --port=3306 --user=root --password=prathamesh@13
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+mysql> use z;
+Database changed
+mysql> create database assignment 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1' at line 1
+mysql> create database assignment_1;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> use assignment 1;
+ERROR 1049 (42000): Unknown database 'assignment'
+mysql> use assignment_1;
+Database changed
+mysql> create table employee( `emplyee id` int primary key, `first name` varchar(12),`last name` varchar(10),gender enum('m','f'));
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> alter table employee add hiredate date;
+Query OK, 0 rows affected (0.28 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
+ERROR 1146 (42S02): Table 'assignment_1.emp' doesn't exist
+mysql> desc assignment_1;
+ERROR 1146 (42S02): Table 'assignment_1.assignment_1' doesn't exist
+mysql> desc emp;
+ERROR 1146 (42S02): Table 'assignment_1.emp' doesn't exist
+mysql> desc employee;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| emplyee id | int           | NO   | PRI | NULL    |       |
+| first name | varchar(12)   | YES  |     | NULL    |       |
+| last name  | varchar(10)   | YES  |     | NULL    |       |
+| gender     | enum('m','f') | YES  |     | NULL    |       |
+| hiredate   | date          | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.07 sec)
+
+mysql> insert into employee values(1,'ram','parkar','m',20220516);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
++------------+------------+-----------+--------+------------+
+| emplyee id | first name | last name | gender | hiredate   |
++------------+------------+-----------+--------+------------+
+|          1 | ram        | parkar    | m      | 2022-05-16 |
++------------+------------+-----------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values(2,'sham','more','m',20220516),(3,'rajesh','sharma','m',19900727);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------------+------------+-----------+--------+------------+
+| emplyee id | first name | last name | gender | hiredate   |
++------------+------------+-----------+--------+------------+
+|          1 | ram        | parkar    | m      | 2022-05-16 |
+|          2 | sham       | more      | m      | 2022-05-16 |
+|          3 | rajesh     | sharma    | m      | 1990-07-27 |
++------------+------------+-----------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| emplyee id | int           | NO   | PRI | NULL    |       |
+| first name | varchar(12)   | YES  |     | NULL    |       |
+| last name  | varchar(10)   | YES  |     | NULL    |       |
+| gender     | enum('m','f') | YES  |     | NULL    |       |
+| hiredate   | date          | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee modify `employee id` int primary key auto_increment;
+ERROR 1054 (42S22): Unknown column 'employee id' in 'employee'
+mysql> alter table employee modify `employee id` int  auto_increment;
+ERROR 1054 (42S22): Unknown column 'employee id' in 'employee'
+mysql> alter table emplyee modify `employee id` int  auto_increment;
+ERROR 1146 (42S02): Table 'assignment_1.emplyee' doesn't exist
+mysql> alter table employee modify `emplyee id` int  auto_increment;
+Query OK, 3 rows affected (0.14 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| emplyee id | int           | NO   | PRI | NULL    | auto_increment |
+| first name | varchar(12)   | YES  |     | NULL    |                |
+| last name  | varchar(10)   | YES  |     | NULL    |                |
+| gender     | enum('m','f') | YES  |     | NULL    |                |
+| hiredate   | date          | YES  |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> create table department(department_id int primary key,name varchar(20),location set(‘VADODARA, ’SURAT’, ’ANAND’, ’RAJKOT’, ’JAMNAGAR’, ’NAVSARI’,’BHARUCH’,’VAPI’));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?VADODARA, ?SURAT?, ?ANAND?, ?RAJKOT?, ?JAMNAGAR?, ?NAVSARI?,?BHARUCH?,?VAPI?))' at line 1
+mysql> create table department(department_id int primary key,name varchar(20),location set('VADODARA', 'SURAT', 'ANAND', 'RAJKOT', 'JAMNAGAR', 'NAVSAR','BHARUCH','VAPI'));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc department;
++---------------+-------------------------------------------------------------------------------+------+-----+---------+-------+
+| Field         | Type                                                                          | Null | Key | Default | Extra |
++---------------+-------------------------------------------------------------------------------+------+-----+---------+-------+
+| department_id | int                                                                           | NO   | PRI | NULL    |       |
+| name          | varchar(20)                                                                   | YES  |     | NULL    |       |
+| location      | set('VADODARA','SURAT','ANAND','RAJKOT','JAMNAGAR','NAVSAR','BHARUCH','VAPI') | YES  |     | NULL    |       |
++---------------+-------------------------------------------------------------------------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+mysql> insert into department(1,'physics',3);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'physics',3)' at line 1
+mysql> insert into department values(1,'physics',3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++---------------+---------+----------------+
+| department_id | name    | location       |
++---------------+---------+----------------+
+|             1 | physics | VADODARA,SURAT |
++---------------+---------+----------------+
+1 row in set (0.00 sec)
+
+mysql>  insert into department values(2,'Maths','VAPI');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from department;
++---------------+---------+----------------+
+| department_id | name    | location       |
++---------------+---------+----------------+
+|             1 | physics | VADODARA,SURAT |
+|             2 | Maths   | VAPI           |
++---------------+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into department values(1,'physics',1);
+ERROR 1062 (23000): Duplicate entry '1' for key 'department.PRIMARY'
+mysql> insert into department values(10,'physics',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++---------------+---------+----------------+
+| department_id | name    | location       |
++---------------+---------+----------------+
+|             1 | physics | VADODARA,SURAT |
+|             2 | Maths   | VAPI           |
+|            10 | physics | VADODARA       |
++---------------+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql>  insert into department values(8,'Maths',5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++---------------+---------+----------------+
+| department_id | name    | location       |
++---------------+---------+----------------+
+|             1 | physics | VADODARA,SURAT |
+|             2 | Maths   | VAPI           |
+|             8 | Maths   | VADODARA,ANAND |
+|            10 | physics | VADODARA       |
++---------------+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department values(10,'physics','mumbai');
+ERROR 1265 (01000): Data truncated for column 'location' at row 1
+mysql> insert into department values(15,'physics','mumbai');
+ERROR 1265 (01000): Data truncated for column 'location' at row 1
+mysql>

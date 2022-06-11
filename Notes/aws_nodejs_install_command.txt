@@ -1,0 +1,58 @@
+TO install nodejs 
+ 		sudo yum install -y gcc-c++ make 
+		curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash - 
+		sudo yum install -y nodejs 
+
+
+
+To install git on amazon linux
+				
+		sudo yum install git
+
+
+To  install extra packages for node js 
+		
+	npm install 
+To kill all node js
+ 	killall node
+
+------------------------------------------------------------------------------------------------------------------------
+
+Docker related linux command
+
+To Search for Docker package:
+		sudo yum search docker
+
+To Get version information:
+		sudo yum info docker  
+
+To install docker 
+		sudo yum install docker
+
+To Start docker service 
+		sudo systemctl start docker
+
+To create docker image
+	sudo docker build -t webapp .
+
+To check status 
+	sudo systemctl status docker
+
+To run image which is created using aboce command
+	sudo docker run --name expressserver -d -p 8081:8081 webapp
+						(-d : detatched mode , -p : port)
+
+
+To check the running containers
+			sudo docker ps
+
+To stop docker container instance
+			sudo docker kill container_id
+ 
+		
+
+
+
+
+
+
